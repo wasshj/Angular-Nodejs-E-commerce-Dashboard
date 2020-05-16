@@ -1,0 +1,80 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-white mb-4">
+  <div class="container">
+    <a routerLink="/home" class="navbar-brand" style="color:black">ABC</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
+    <span class="navbar-toggler-icon">
+
+    </span>
+    </button>
+    <div class ="collapse navbar-collapse" id="navbarMain">
+
+
+      <ul class="navbar-nav ml-auto">
+
+        <li>
+          <a routerLink="/login" class="nav-link" style="color:black">Login</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+<div class="badge badge-primary text-wrap ml-3 mt-2" style="width: 10rem;">
+  <h5 >Produts</h5>
+</div>
+
+<main>
+  <div class="container-fluid" style="margin-top: -60px">
+
+    <div class="row">
+
+      <div class="col-md-12 mx-auto text-center mt-4 ">
+
+        <div class="card card-cascade narrower mt-5">
+
+
+          <div class="px-4">
+
+            <!--Table-->
+            <table class="table table-bordered table-responsive-md table-striped text-center mt-4" >
+
+              <!--Table head-->
+              <thead>
+              <tr >
+
+                <th class="th-lg">Name</th>
+                <th class="th-lg">Color</th>
+                <th class="th-lg">Price</th>
+              </tr>
+              </thead>
+              <!--Table head-->
+
+              <!--Table body-->
+              <tbody>
+              <tr *ngFor="let product of finalProductSet | paginate: { itemsPerPage: 8, currentPage: p }" >
+                <td class="logtd" style="text-align: center; vertical-align: middle;">{{product.name}}</td>
+                <td class="logtd" style="text-align: center; vertical-align: middle;">{{product.color}}</td>
+                <td class="logtd" style="text-align: center; vertical-align: middle;">{{product.price}}</td>
+
+              </tr>
+              </tbody>
+              <!--Table body-->
+            </table>
+
+          </div>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+          <hr class="my-0">
+
+        </div>
+      </div>
+    </div>
+    <!-- Basic example -->
+
+    <hr class="my-5">
+  </div>
+
+</main>
+

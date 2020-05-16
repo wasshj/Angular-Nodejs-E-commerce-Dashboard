@@ -1,0 +1,239 @@
+
+
+  <div class="container-fluid" style="margin-top: -80px">
+
+    <div class="row">
+
+      <div class="col-md-12 mx-auto text-center mt-4 ">
+
+        <!--Add dictionary alert-->
+
+        <div mdbModal #addDictionaryModal="mdbModal" class="modal fade top" id="addDictionaryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-notify modal-info" role="document" >
+            <!--Content-->
+            <div class="modal-content" >
+              <!--Header-->
+              <div class="modal-header " style="color:white;height: 50px;background-color: #ffbb33 " >
+                <h5 class="float-left" style="text-align: center; vertical-align: middle;" >ALERT</h5>
+                <p class="heading lead"></p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="addDictionaryModal.hide()">
+                  <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body" >
+                {{addDictionaryErrorMessage}}
+
+              </div>
+
+              <div class="modal-footer justify-content-center" style="height: 65px;">
+                <a type="button" mdbBtn color="amber" outline="true" class="waves-effect" mdbWavesEffect (click)="addDictionaryModal.hide()">Close</a>
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      <!-- Edit Modal-->
+        <div mdbModal #editModal="mdbModal" class="modal fade top" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-notify modal-info" role="document" >
+            <!--Content-->
+            <div class="modal-content" >
+              <!--Header-->
+              <div class="modal-header " style="color:white;height: 50px;background-color: #0099CC " >
+                <h5 class="float-left" style="text-align: center; vertical-align: middle;" >EDIT DICTIONARY</h5>
+                <p class="heading lead"></p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="editModal.hide()">
+                  <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body" >
+                <div class="md-form" *ngIf="this.selectedDictionary !== undefined">
+                  <input [(ngModel)]="this.selectedDictionary.column" type="text" id="edit-target-column" class="form-control validate" name="edit-target-column" mdbInputDirective >
+                  <label for="edit-target-column">Target Column</label>
+                </div>
+                <div class="md-form" *ngIf="this.selectedDictionary !== undefined">
+                  <input [(ngModel)]="this.selectedDictionary.domain" type="text" id="edit-target-domain" class="form-control validate" name="edit-target-domain" mdbInputDirective >
+                  <label for="edit-target-domain">Domain</label>
+                </div>
+                <div class="md-form" *ngIf="this.selectedDictionary !== undefined">
+                  <input [(ngModel)]="this.selectedDictionary.range" type="text" id="edit-target-range" class="form-control validate" name="edit-target-range" mdbInputDirective >
+                  <label for="edit-target-range">Range</label>
+                </div>
+
+              </div>
+
+              <div class="modal-footer justify-content-center" style="height: 65px;">
+                <a type="button" mdbBtn color="light-blue" outline="true" class="waves-effect" mdbWavesEffect style="margin-right: 10px" (click)="updateDictionary()">Apply</a>
+                <a type="button" mdbBtn color="light-blue" outline="true" class="waves-effect" mdbWavesEffect (click)="editModal.hide()">Close</a>
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+    <!-- Delete Modal-->
+        <div mdbModal #deleteModal="mdbModal" class="modal fade top" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-notify modal-info" role="document" >
+            <!--Content-->
+            <div class="modal-content" >
+              <!--Header-->
+              <div class="modal-header " style="color:white;height: 50px;background-color: #CC0000 " >
+                <h5 class="float-left" style="text-align: center; vertical-align: middle;" >DELETE DICTIONARY</h5>
+                <p class="heading lead"></p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="deleteModal.hide()">
+                  <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body" >
+               <h4>Are you sure you want to delete this row ?</h4>
+
+              </div>
+
+              <div class="modal-footer justify-content-center" style="height: 65px;">
+                <a type="button" mdbBtn color="red" outline="true" class="waves-effect" mdbWavesEffect style="margin-right: 10px" (click)="deleteDictionary()">Apply</a>
+                <a type="button" mdbBtn color="red" outline="true" class="waves-effect" mdbWavesEffect (click)="deleteModal.hide()">Close</a>
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="card card-cascade narrower mt-5">
+
+
+          <div class="px-4">
+
+            <div style="margin-top: 10px">
+              <h2 class="float-left text-body" style="color: #546e7a"><span class="badge badge-default text-wrap"> Add a Dictionary</span></h2>
+
+              <div >
+
+              <div *ngIf="!addDictionaryIsShown">
+                <mdb-icon fas icon="chevron-circle-down" style="color:#6200ea;margin-left: -1000px;margin-top: 15px " (click)="display() "></mdb-icon>
+              </div>
+              <div *ngIf="addDictionaryIsShown">
+                <mdb-icon fas icon="chevron-circle-up" style="color:#6200ea;margin-left: -1000px;margin-top: 15px " (click)="display() "></mdb-icon>
+              </div>
+
+
+
+              <div *ngIf="addDictionaryIsShown"  style="margin-top: 5px">
+
+                <form>
+                <div class="md-form" style="width: 20%;float: left;margin-left: -195px;" >
+                  <input [(ngModel)]="this.dictionary.column" type="text" id="add-dictionary-column" class="form-control validate" name="add-dictionary-column" mdbInputDirective required>
+                  <label for="edit-target-column">Target Column</label>
+                </div>
+                <div class="md-form" style="width: 20%;float:left;margin-left: 20px;">
+                  <input [(ngModel)]="this.dictionary.domain" type="text" id="add-dictionary-domain" class="form-control validate" name="add-dictionary-domain" mdbInputDirective required>
+                  <label for="edit-target-column">Domain</label>
+                </div>
+                <div class="md-form" style="width: 20%;float:left;margin-left: 20px;">
+                  <input [(ngModel)]="this.dictionary.range" type="text" id="add-dictionary-range" class="form-control validate" name="add-dictionary-range" mdbInputDirective required>
+                  <label for="edit-target-column">Range</label>
+                </div>
+                <button type="button" mdbBtn color="blue" class="waves-light" style="float:left;margin-left: 20px;margin-top: 20px;height: 80%" data-toggle="modal" data-target="#basicExample"
+                       (click)="addDictionary()"  mdbWavesEffect type="submit">
+                  Add Dictionary
+                </button>
+                </form>
+                <br>
+                <!--
+                didn't work with ngClass : alert's size & form changed
+                <div role="alert" [ngClass]="{'alert alert-info':duplicateError === true,'alert alert-warning':forksError === true,'alert alert-danger':cyclesError === true,'alert alert-dark':chainsError === true}" style="margin-top: 120px" >
+                  <span >{{errorMessage}}</span>
+                </div>
+                -->
+
+
+
+              </div>
+
+                <div class="alert alert-info" role="alert" style="margin-top: 100px" *ngIf="duplicateError">
+                  <span >{{errorMessage}}</span>
+                </div>
+                <div class="alert alert-warning" role="alert" style="margin-top: 100px" *ngIf="forksError">
+                  <span >{{errorMessage}}</span>
+                </div>
+                <div class="alert alert-danger" role="alert" style="margin-top: 100px" *ngIf="cyclesError">
+                  <span >{{errorMessage}}</span>
+                </div>
+                <div class="alert alert-dark" role="alert" style="margin-top: 100px" *ngIf="chainsError">
+                  <span >{{errorMessage}}</span>
+                </div>
+
+            </div>
+
+
+            <!--Table-->
+            <table  class="table table-bordered table-responsive-md table-striped text-center" style="margin-top: 20px">
+
+              <!--Table head-->
+              <thead>
+              <tr >
+                <th class="th-lg">Target Column</th>
+                <th class="th-lg">Domain</th>
+                <th class="th-lg">Range</th>
+                <th class="th-lg">Status</th>
+                <th class="th-lg">Action</th>
+              </tr>
+              </thead>
+              <!--Table head-->
+
+              <!--Table body-->
+              <tbody>
+              <tr *ngFor="let dictionary of dictionaries | paginate: { itemsPerPage: 8, currentPage: p }" >
+                <td class="logtd" style="text-align: center; vertical-align: middle;">
+                  <mdb-icon fas icon="check"   class="float-left" *ngIf="dictionary.status==='Validated'" style="color:#7cb342;">
+                  </mdb-icon>
+                  <mdb-icon fas icon="exclamation-circle"   class="float-left" *ngIf="dictionary.status==='Duplicates Error'" style="color:#40c4ff ;">
+                  </mdb-icon>
+                  <mdb-icon fas icon="exclamation-circle"   class="float-left" *ngIf="dictionary.status==='Forks Error'" style="color:#ffbb33 ;">
+                  </mdb-icon>
+                  <mdb-icon fas icon="exclamation-circle"   class="float-left" *ngIf="dictionary.status==='Cycles Error'" style="color:#CC0000 ;">
+                  </mdb-icon>
+                  <mdb-icon fas icon="exclamation-circle"   class="float-left" *ngIf="dictionary.status==='Chains Error'" style="color:#3E4551 ;">
+                  </mdb-icon>
+                  {{dictionary.column}}</td>
+                <td class="logtd" style="text-align: center; vertical-align: middle;">{{dictionary.domain}}</td>
+                <td class="logtd" style="text-align: center; vertical-align: middle;">{{dictionary.range}}</td>
+                <td class="logtd" style="text-align: center; vertical-align: middle;">{{dictionary.status}}</td>
+                <td class="logtd" style="text-align: center; vertical-align: middle;">
+                  <!--<mdb-icon fas icon="edit"   class="-align-center" style="color:#33b5e5;size: 150%;">
+                  </mdb-icon>
+                  <mdb-icon fas icon="backspace"   class="-align-center" style="color:#CC0000;margin-left: 20px">
+                  </mdb-icon>-->
+                  <i class="fas fa-edit fa-2x waves-effect" style="color:#33b5e5" mdbWavesEffect (click)="showEditModal(dictionary)"></i>
+                  <i class="fas fa-backspace fa-2x waves-effect" style="color:#CC0000;margin-left: 20px" mdbWavesEffect (click)="showDeleteModal(dictionary)"></i>
+                </td>
+              </tr>
+              </tbody>
+              <!--Table body-->
+            </table>
+
+          </div>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+          <hr class="my-0">
+
+        </div>
+      </div>
+    </div>
+    <!-- Basic example -->
+
+    <hr class="my-5">
+  </div>

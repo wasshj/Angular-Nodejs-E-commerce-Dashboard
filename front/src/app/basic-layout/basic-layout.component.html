@@ -1,0 +1,93 @@
+<!--Double navigation-->
+<header>
+
+  <!-- Sidebar navigation -->
+  <mdb-side-nav #sidenav class="sn-bg-1" [fixed]="false">
+
+    <mdb-navbar-brand>
+      <li>
+        <div class="logo-wrapper waves-light">
+          <a routerLink="/dashboard/home">
+            <img src="/assets/images/logo.png" class="img-fluid flex-center layout-logo">
+          </a>
+        </div>
+      </li>
+      <!--/. Logo -->
+    </mdb-navbar-brand>
+
+    <links>
+
+
+      <!-- Side navigation links -->
+      <li>
+        <ul class="collapsible collapsible-accordion">
+          <mdb-accordion [multiple]="false" aria-multiselectable="false">
+
+
+            <mdb-accordion-item class="no-collase">
+              <mdb-accordion-item-head mdbWavesEffect>
+                <a class="menu-link" routerLink="/dashboard/dictionaries"><i class="fa fa-globe"></i> Dictionaries</a>
+              </mdb-accordion-item-head>
+              <mdb-accordion-item-head mdbWavesEffect>
+                <a class="menu-link" routerLink="/dashboard/products"><i class="fa fa-layer-group"></i> Products</a>
+              </mdb-accordion-item-head>
+              <mdb-accordion-item-head mdbWavesEffect>
+                <a class="menu-link" routerLink="/home"><i class="fa fa-home"></i> Home</a>
+              </mdb-accordion-item-head>
+
+              <mdb-accordion-item-body></mdb-accordion-item-body>
+            </mdb-accordion-item>
+
+          </mdb-accordion>
+        </ul>
+      </li>
+      <!--/. Side navigation links -->
+    </links>
+    <div class="sidenav-bg mask-strong"></div>
+  </mdb-side-nav>
+  <!--/. Sidebar navigation -->
+
+  <!-- Navbar -->
+  <mdb-navbar SideClass="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav" [containerInside]="false">
+
+    <navlinks class="navbar-container">
+      <!-- SideNav slide-out button -->
+      <div class="float-left">
+        <a (click)="sidenav.show()" class="button-collapse hidden-nav-button-collapse">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
+      <!--/. SideNav slide-out button -->
+    </navlinks>
+
+    <mdb-navbar-brand>
+      <!-- Breadcrumb-->
+      <div class="breadcrumbs breadcrumbs-hidden-nav breadcrumb-dn mr-auto dashboard-title">
+        <p>Dashboard</p>
+      </div>
+      <!--/. Breadcrumb-->
+    </mdb-navbar-brand>
+
+    <navlinks>
+      <ul class="nav navbar-nav nav-flex-icons ml-auto ie-double-nav ie-hidden-double-nav">
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect>
+            <i class="fa fa-sign-out"></i>
+            <span class="clearfix d-none d-sm-inline-block" (click)="logout()">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </navlinks>
+  </mdb-navbar>
+  <!--/. Navbar -->
+
+</header>
+<!--/.Double navigation-->
+
+<!--Main Layout-->
+<main>
+  <div class="container-fluid">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+<!--/Main layout-->

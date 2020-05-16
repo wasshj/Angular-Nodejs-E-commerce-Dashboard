@@ -1,0 +1,116 @@
+
+
+<main>
+  <div class="container-fluid" style="margin-top: -168px">
+
+    <div class="row">
+
+      <div class="col-md-12 mx-auto text-center mt-4 ">
+
+        <!-- Edit Modal-->
+        <div mdbModal #ProductEditModal="mdbModal" class="modal fade top" id="ProductEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true" style="width: 50%;margin-left: 350px">
+          <div class="modal-dialog modal-lg modal-notify modal-info" role="document" >
+            <!--Content-->
+            <div class="modal-content" >
+              <!--Header-->
+              <div class="modal-header " style="color:white;height: 50px;background-color: #546e7a " >
+                <h5 class="float-left" style="text-align: center; vertical-align: middle;" >PRODUCT</h5>
+                <p class="heading lead"></p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeProductEditModal()">
+                  <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+              </div>
+
+              <div class="modal-body" >
+                <div class="md-form" *ngIf="this.selectedProcuct.name !== undefined">
+                  <input  [(ngModel)]="this.selectedProcuct.name" type="text" id="edit-product-name" class="form-control validate" name="edit-product-name" mdbInputDirective >
+                  <label for="edit-product-name">Name</label>
+                </div>
+                <div class="md-form" *ngIf="this.selectedProcuct.color !== undefined">
+                  <input [(ngModel)]="this.selectedProcuct.color" type="text" id="edit-product-color" class="form-control validate" name="edit-product-color" mdbInputDirective >
+                  <label for="edit-product-color">Color</label>
+                </div>
+                <div class="md-form" *ngIf="this.selectedProcuct.price !== undefined">
+                  <input [(ngModel)]="this.selectedProcuct.price" type="text" id="edit-product-price" class="form-control validate" name="edit-product-price" mdbInputDirective >
+                  <label for="edit-product-price">Price</label>
+                </div>
+
+
+              </div>
+
+              <div class="modal-footer justify-content-center" style="height: 65px;">
+                <a type="button" mdbBtn color="blue-grey" outline="true" class="waves-effect" mdbWavesEffect style="margin-right: 10px" (click)="updateProduct()">Apply</a>
+                <a type="button" mdbBtn color="blue-grey" outline="true" class="waves-effect" mdbWavesEffect (click)="deleteProduct()">DELETE</a>
+                <a type="button" mdbBtn color="blue-grey" outline="true" class="waves-effect" mdbWavesEffect (click)="closeProductEditModal()">Close</a>
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card card-cascade narrower mt-5">
+
+
+          <div class="px-4">
+
+            <button mdbBtn class="btn waves-light float-right" color="info" (click)="addPoduct()">Add Product</button>
+            <button type="button" mdbBtn color="blue" class="waves-light float-right" data-toggle="modal" data-target="#basicExample"
+                    (click)="showOriginalData()" mdbWavesEffect>
+              Original
+            </button>
+            <button type="button" mdbBtn color="blue" class="waves-light float-right" data-toggle="modal" data-target="#basicExample"
+                    (click)="showStandardisedData()" mdbWavesEffect>
+              Standardised
+            </button>
+
+
+            <!--Table-->
+            <table class="table table-bordered table-responsive-md table-striped text-center" style="margin-top: 80px">
+
+              <!--Table head-->
+              <thead>
+              <tr >
+
+                <th class="th-lg">Name</th>
+                <th class="th-lg">Color</th>
+                <th class="th-lg">Price</th>
+                <th class="th-lg">Action</th>
+              </tr>
+              </thead>
+              <!--Table head-->
+
+              <!--Table body-->
+              <tbody>
+              <tr *ngFor="let product of finalProductSet | paginate: { itemsPerPage: 8, currentPage: p }" >
+                <td class="logtd" style="text-align: center; vertical-align: middle;">{{product.name}}</td>
+                <td class="logtd" style="text-align: center; vertical-align: middle;">{{product.color}}</td>
+                <td class="logtd" style="text-align: center; vertical-align: middle;">{{product.price}}</td>
+
+                <td class="logtd" style="text-align: center; vertical-align: middle;">
+                  <i class="fas fa-tasks fa-2x waves-effect" style="color:#546e7a" mdbWavesEffect (click)="showProductEditModal(product)"></i>
+
+                </td>
+              </tr>
+              </tbody>
+              <!--Table body-->
+            </table>
+
+          </div>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+          <hr class="my-0">
+
+        </div>
+      </div>
+    </div>
+    <!-- Basic example -->
+
+    <hr class="my-5">
+  </div>
+
+</main>
+

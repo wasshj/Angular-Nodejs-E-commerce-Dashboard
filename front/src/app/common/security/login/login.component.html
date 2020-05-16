@@ -1,0 +1,114 @@
+
+<div class="row form-margin-top">
+  <div class="col-4">
+
+  </div>
+  <div class="col-4">
+    <!-- Default form login -->
+    <form #loginForm="ngForm" class="text-center border border-light p-5" (ngSubmit)="loginForm.valid && login()" novalidate>
+
+      <p class="h4 mb-4">
+
+        <img src="/assets/images/logo.png">
+
+      </p>
+
+      <div>
+        <div *ngIf="(flashMessage !== undefined) && flashMessage.exists" class="alert"
+             [ngClass]="{ 'alert-danger': flashMessage.type === 'error' , 'alert-success': flashMessage.type === 'success'}"
+             role="alert">
+          {{flashMessage.text}}
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="loginIncorrect">
+          {{errorMessage}}
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="errorExists">
+          Error occurred. Please contact your support.
+        </div>
+      </div>
+
+      <div class="md-form" [ngClass]="{ 'has-error': loginForm.submitted && !email.valid }">
+        <input type="text" id="email" class="form-control" [(ngModel)]="user.email"
+               name="email" #email="ngModel" required mdbActive email>
+        <label [class.active]="user.email" for="email">Email</label>
+        <div *ngIf="loginForm.submitted && !email.valid"
+             class="style-error-message">
+          <p>Please enter a correct e-mail</p>
+        </div>
+      </div>
+
+      <div class="md-form" [ngClass]="{ 'has-error': loginForm.submitted && !password.valid }">
+        <input type="password" class="form-control" [(ngModel)]="user.password" id="password" name="password" #password="ngModel" required mdbActive>
+        <label [class.active]="user.password" for="password">Type your password</label>
+        <div *ngIf="loginForm.submitted && !password.valid"
+             class="style-error-message">
+          <p>Please enter a password</p>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-around">
+
+        <div>
+          <!-- Forgot password -->
+          <a [routerLink]="['/forgot_password']">Forgot password?</a>
+        </div>
+      </div>
+
+      <!-- Sign in button -->
+      <button [hidden]="loading" class="btn btn-primary btn-block my-4" [disabled]="!loginForm.valid">Sign in</button>
+      <div [hidden]="!loading" class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+        <div class="spinner-layer spinner-red">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+        <div class="spinner-layer spinner-yellow">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+        <div class="spinner-layer spinner-green">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+
+
+    </form>
+    <!-- Default form login -->
+
+  </div>
+  <div class="col-4">
+
+  </div>
+</div>
