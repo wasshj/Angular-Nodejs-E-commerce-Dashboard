@@ -1,0 +1,13 @@
+{
+  "db": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "dictionarydb",
+    "password": "wassim-hajji",
+    "name": "db",
+    "user": "wassim-hajji",
+    "useNewUrlParser": true,
+    "connector": "mongodb"
+  }
+}
